@@ -1,0 +1,44 @@
+{% extends 'layout.html' %}
+{% load static from staticfiles %}
+
+{% block title %}{{ mineral.name }}{% endblock %}
+
+{% block content %}
+    <div class="grid-100 mineral__container">
+      <h1 class="mineral__name">{{ header.name }}</h1>
+      <div class="mineral__image-bg">
+        <img class="mineral__image" src="{% static 'minerals/img' %}/{{ header.name }}.jpg" alt="{{ header.name|title }}">
+        <p class="mineral__caption">{{ header.image_caption }}</p>
+      </div>
+      <div class="mineral__table-container">
+        <table class="mineral__table">
+            {% for field, value in body.items %}
+                {% if value %}
+                <tr>
+                    <td class="mineral__category">{{ field|title }}</td>
+                    {% if field == 'formula' %}
+                        <td class="mineral__formula">{{ value|safe }}
+                    {% else %}
+                        <td>{{ value|safe }}</td>
+                    {% endif %}
+                </tr>
+                {% endif %}
+            {% endfor %}
+            {% for field, value in mineral.items %}
+                {% if value %}
+                <tr>
+                    <td class="mineral__category">{{ field|title }}</td>
+                   <td>{{ value|safe }}</td>
+                </tr>
+                {% endif %}
+            {% endfor %}
+        </table>
+      </div>
+    </div>
+{% endblock %}
+
+{% block rand_mineral %}
+    <div class="minerals__random">
+        <a class="minerals__anchor" href="{% url 'minerals:detail' pk=rand_pk %}">Show random mineral</a>
+    </div>
+{% endblock %}

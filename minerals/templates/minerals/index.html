@@ -1,0 +1,19 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <div class="grid-100">
+      <ul class="minerals__container">
+          {% for mineral in minerals %}
+            <li class="minerals__item">
+                <a class="minerals__anchor" href="{% url 'minerals:detail' pk=mineral.pk %}">{{ mineral.name|truncatewords:1 }}</a>
+            </li>
+          {% endfor %}
+      </ul>
+    </div>
+{% endblock %}
+
+{% block rand_mineral %}
+    <div class="minerals__random">
+        <a class="minerals__anchor" href="{% url 'minerals:detail' pk=rand_pk %}">Show random mineral</a>
+    </div>
+{% endblock %}
